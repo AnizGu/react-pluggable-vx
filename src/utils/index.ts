@@ -7,7 +7,7 @@ export const defineConfig = (config: PluggableConfig) => {
 
 export const loadPlugins = (config?: PluggableConfig) => (config && config.plugins) ? config.plugins.map(plugin => {
     const { name, alias, component } = plugin;
-    const Component = lazy(config.modules[`./pluggable/${component}.tsx`])
+    const Component = lazy(config.modules[`${component}.tsx`])
     return {
         name,
         alias,

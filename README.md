@@ -73,16 +73,16 @@ import { defineConfig } from "react-pluggable-vx";
 
 export default defineConfig({
   // 导入想要目录内所有*.tsx插件
-  modules: import.meta.glob("./pluggable/*.tsx"),
+  modules: import.meta.glob("./pluggable/**/*.tsx"),
   plugins: [
     {
       name: "header",
       alias: "01",
-      component: "header",
+      component: "./pluggable/Header/header",
     },
     {
       name: "header-content",
-      component: "test",
+      component: "./pluggable/test",
     },
   ],
 });
@@ -91,9 +91,9 @@ export default defineConfig({
 App.tsx
 
 ```typescript
-import React from 'react';
-import { PluggableProvider, Slot } from 'react-pluggable-vx';
-import config from './config';
+import React from "react";
+import { PluggableProvider, Slot } from "react-pluggable-vx";
+import config from "./config";
 
 const App: React.FC = () => {
   return (
@@ -102,49 +102,49 @@ const App: React.FC = () => {
       <Slot name="main" />
       <Slot name="footer" />
     </PluggableProvider>
-  )
-}
+  );
+};
 
-export default App
+export default App;
 ```
 
-## 组件与API
+## 组件与 API
 
-##### Slot组件
+##### Slot 组件
 
-|属性|是否必传|说明|
-|----|----|----|
-| name |是| slot名称 |
+| 属性 | 是否必传 | 说明      |
+| ---- | -------- | --------- |
+| name | 是       | slot 名称 |
 
-##### PluggableProvider组件
+##### PluggableProvider 组件
 
-|属性|是否必传|说明|
-|----|----|----|
-| config |否| 配置文件 |
-| plugins |否| 除了配置文件导入，还能使用这个属性进行导入插件  |
+| 属性    | 是否必传 | 说明                                           |
+| ------- | -------- | ---------------------------------------------- |
+| config  | 否       | 配置文件                                       |
+| plugins | 否       | 除了配置文件导入，还能使用这个属性进行导入插件 |
 
-##### defineConfig配置文件说明
+##### defineConfig 配置文件说明
 
-|属性|是否必传|说明|
-|----|----|----|
-| modules |否| 使用`import.meta.glob()`方法导入的所有 module |
-| plugins |否| 是一个插件配置项                              |
+| 属性    | 是否必传 | 说明                                          |
+| ------- | -------- | --------------------------------------------- |
+| modules | 否       | 使用`import.meta.glob()`方法导入的所有 module |
+| plugins | 否       | 是一个插件配置项                              |
 
-##### PluggableConfigItem接口
+##### PluggableConfigItem 接口
 
-|属性|是否必传|说明|
-|----|----|----|
-|name|是|`slot`名称，根据此名称，插入组件|
-|alias|否|插件别名|
-|component|是|`.tsx`文件名|
+| 属性      | 是否必传 | 说明                             |
+| --------- | -------- | -------------------------------- |
+| name      | 是       | `slot`名称，根据此名称，插入组件 |
+| alias     | 否       | 插件别名                         |
+| component | 是       | `.tsx`文件名                     |
 
-##### PluginProvided接口
+##### PluginProvided 接口
 
-|属性|说明|
-|----|----|
-|pluginKey|插入组件时生成的key|
-|index|处于Slot中的下标位置|
-|eventHandler|事件管理器|
+| 属性         | 说明                   |
+| ------------ | ---------------------- |
+| pluginKey    | 插入组件时生成的 key   |
+| index        | 处于 Slot 中的下标位置 |
+| eventHandler | 事件管理器             |
 
 ##### EventHandler
 
