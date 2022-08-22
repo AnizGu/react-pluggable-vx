@@ -1,19 +1,32 @@
+import { PropsWithChildren } from "react";
 
-export type PluggableProviderProps = PluggableProps;
+
 export type PluginRenderComponent = React.ComponentType<PluginProvided>;
 export type PluggableChildren = React.ReactNode | ((register: PluggableRegister) => JSX.Element) | undefined;
 
-export interface PluggableRegister {
-    registerPlugin: (plugin: IPlugin) => string;
-    registerPlugins: (plugins: IPlugin[]) => string[];
+export interface PluggableProviderProps extends PropsWithChildren {
+    config?: PluggableConfig;
+    plugins?: IPlugin[];
+};
+
+export interface PluggableContextValue {
+    manager: PluggableManager;
+    eventHandler: EventHandler;
 }
 
-export interface PluggableMap {
+export interface PluggableRegister {
+    registerPlugin: React.Dispatch<React.SetStateAction<IPlugin | undefined>>;
+    registerPlugins: React.Dispatch<React.SetStateAction<IPlugin[]>>;
+}
+
+export interface Manager {
     has: (name: string, alias?: string) => boolean;
     get: (name: string, alias?: string) => IPlugin | undefined;
     getKey: (name: string, alias?: string) => string;
     getPlugins: (name: string, alias?: string) => IPlugin[];
     removePlugin: (name: string, alias?: string) => boolean;
+    registerPlugin: (plugin: IPlugin) => string;
+    registerPlugins: (plugins: IPlugin[]) => string[];
 }
 
 export interface EventHandler {
@@ -23,14 +36,11 @@ export interface EventHandler {
     removeAll: (eventType?: string) => void;
 }
 
-export interface PluggableManager extends PluggableMap, PluggableRegister { }
-
-export interface PluggableState {
-    manager: PluggableManager;
-    eventHandler: EventHandler;
+export interface PluggableManager extends Manager {
+    plugins: Map<string, IPlugin>;
 }
 
-export type PluginProvided = {
+export interface PluginProvided {
     pluginKey: string;
     index: number;
     eventHandler: EventHandler
@@ -46,7 +56,17 @@ export interface SlotProps {
     name: string;
 }
 
-export interface PluggableProps {
+export interface PluggableProps extends PropsWithChildren {
     plugins?: IPlugin[];
-    children?: PluggableChildren;
+}
+
+export interface PluggableConfigItem {
+    name: string;
+    alias?: string;
+    component: string;
+}
+
+export interface PluggableConfig {
+    modules?: any,
+    plugins?: PluggableConfigItem[]
 }

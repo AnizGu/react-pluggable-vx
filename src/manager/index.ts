@@ -2,7 +2,7 @@ import { IPlugin, PluggableManager } from "../typings";
 
 class PluggableCoreManager implements PluggableManager {
 
-    plugins = new Map<string, IPlugin>();
+    public plugins = new Map<string, IPlugin>();
 
     has = (name: string, alias?: string) => {
         const key = this.getKey(name, alias);

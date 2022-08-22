@@ -1,5 +1,4 @@
-import { useManager } from './hooks';
-import { createPlugin } from './utils';
+import { defineConfig } from './utils';
 export * from './components';
 export * from './typings';
-export { useManager, createPlugin }
+export { defineConfig };

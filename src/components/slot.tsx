@@ -6,22 +6,25 @@ const Slot: React.FC<SlotProps> = ({ name }) => {
 
     const manager = useManager();
     const eventHandler = useEventHandler();
+
     const [plugins, setPlugins] = useState<IPlugin[]>([]);
 
     useEffect(() => {
         setPlugins(manager.getPlugins(name));
-    }, []);
+    }, [manager.plugins.size]);
 
     return (
         <>
             {plugins.map((plugin, index) => {
                 const { name, alias, Component } = plugin;
                 const key = manager.getKey(name, alias);
-                return <Component
-                    eventHandler={eventHandler}
-                    key={key}
-                    pluginKey={key}
-                    index={index} />
+                return (
+                    <Component
+                        key={key}
+                        eventHandler={eventHandler}
+                        pluginKey={key}
+                        index={index} />
+                )
             })}
         </>
     )
