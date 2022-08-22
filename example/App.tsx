@@ -1,11 +1,10 @@
 import React from 'react';
 import { PluggableProvider, Slot } from '../src';
-import { plugins } from './plugins';
+import config from './config';
 
 const App: React.FC = () => {
-
   return (
-    <PluggableProvider plugins={plugins}>
+    <PluggableProvider config={config}>
       <Slot name="header" />
       <Slot name="main" />
       <Slot name="footer" />

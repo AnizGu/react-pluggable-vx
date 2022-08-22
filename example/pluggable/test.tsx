@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { createPlugin } from "../src";
-import { PluginProvided } from '../src/typings';
+import { PluginProvided } from '../../src';
 
 const Test: React.FC<PluginProvided> = ({ eventHandler }) => {
     const [text, setText] = useState('Test Plugin');
@@ -11,8 +10,4 @@ const Test: React.FC<PluginProvided> = ({ eventHandler }) => {
     return <div>{text}</div>
 }
 
-export default createPlugin(
-    'header-content',
-    'test',
-    Test
-)
+export default Test

@@ -1,4 +1,5 @@
-import { useAppSelector } from "./redux/hooks"
+import { useContext } from "react";
+import { PluggableContext } from "./components/context";
 
-export const useManager = () => useAppSelector(state => state.pluggableCore.manager);
-export const useEventHandler = ()=> useAppSelector(state => state.pluggableCore.eventHandler);
+export const useManager = () => useContext(PluggableContext).manager;
+export const useEventHandler = () => useContext(PluggableContext).eventHandler;
