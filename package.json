@@ -20,6 +20,20 @@
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnizGu/react-pluggable-vx.git"
+  },
+  "keywords": [
+    "injection",
+    "injectable"
+  ],
+  "author": "AnziGu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AnizGu/react-pluggable-vx/issues"
+  },
+  "homepage": "https://github.com/AnizGu/react-pluggable-vx#readme",
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.5",
     "fbemitter": "^3.0.0",
