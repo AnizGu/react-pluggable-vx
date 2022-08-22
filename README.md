@@ -141,7 +141,7 @@ export default App
 ##### PluginProvided接口
 
 |属性|说明|
-|----|----|----|
+|----|----|
 |pluginKey|插入组件时生成的key|
 |index|处于Slot中的下标位置|
 |eventHandler|事件管理器|
