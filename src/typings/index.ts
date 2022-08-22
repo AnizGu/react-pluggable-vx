@@ -30,7 +30,7 @@ export interface PluggableState {
     eventHandler: EventHandler;
 }
 
-export interface PluginProvided {
+export type PluginProvided = {
     pluginKey: string;
     index: number;
     eventHandler: EventHandler
