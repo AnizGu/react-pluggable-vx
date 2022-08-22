@@ -1,5 +1,5 @@
 import React from 'react';
-import { PluginProvided, Slot } from '../../src';
+import { PluginProvided, Slot } from '../../../src';
 
 const Header: React.FC<PluginProvided> = ({ eventHandler }) => {
 
