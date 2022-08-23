@@ -18,9 +18,9 @@ yarn add react-pluggable-vx
 
 ## 使用
 
-**编写插件**
+**编写需要放入插槽的组件**
 
-插件组件其实和普通 React 组件无异，在需要事件通信时可能需要使用到`PluginProvided`.
+组件其实和普通 React 组件无异，在需要事件通信时可能需要使用到`PluginProvided`.
 
 header.tsx
 
@@ -64,7 +64,9 @@ const HeaderContent: React.FC<PluginProvided> = ({ eventHandler }) => {
 export default HeaderContent;
 ```
 
-**编写配置文件**
+**配置文件 ts**
+
+它可以帮助你导入所有的组件，须指定文件夹和需要导入的文件相对路径。
 
 config.ts
 
@@ -88,6 +90,8 @@ export default defineConfig({
 });
 ```
 
+**编写插槽**
+
 App.tsx
 
 ```typescript
@@ -108,9 +112,132 @@ const App: React.FC = () => {
 export default App;
 ```
 
-## 组件与 API
+## Hooks
 
-##### Slot 组件
+#### useManager()
+
+管理插件组件
+
+**使用**
+
+```typescript
+const manager = useManager();
+```
+
+**示例**
+
+```typescript
+import React, { useEffect } from "react";
+import { useManager } from "react-pluggable-vx";
+
+const TestUseManager: React.FC = () => {
+  const manager = useManager();
+
+  useEffect(() => {
+    // 还有许多api可以自行使用查看
+    // 注册插件
+    manager.registerPlugin({});
+    // 注册多个插件
+    manager.registerPlugins([
+      // ... do something
+    ]);
+  }, []);
+  return (
+    <div>
+      <Slot name="test" />
+    </div>
+  );
+};
+```
+
+#### useEventHandler()
+
+事件管理器
+
+**使用**
+
+```typescript
+const event = useEventHandler();
+```
+
+**示例**
+
+```typescript
+import React, { useEffect } from "react";
+import { useEventHandler } from "react-pluggable-vx";
+
+// 插入到Slot receive的组件
+const Receive: React.FC = () => {
+  const event = useEventHandler();
+  const [text, setText] = useState("");
+
+  event.subscribe<(text: string) => void>("changeText", (text) => {
+    setText(text);
+  });
+
+  return <div>{text}</div>;
+};
+
+// 容器组件或者其他Slot中的组件
+const TestUseEventHandler: React.FC = () => {
+  const event = useEventHandler();
+
+  const handleClick = () => {
+    // 发送消息
+    event.send("changeText", "Hello World");
+  };
+
+  return (
+    <div>
+      <button onClick={handleClick}>发送消息</button>
+      <Slot name="receive" />
+    </div>
+  );
+};
+```
+
+#### useRegister()
+
+注册器，可以看做`useManager`的升级版，`useManager`可以作为查询插件组件的作用，注册插件组件时不具备重新渲染的能力，在注册插件时可能会出现不更新子组件的情况，所以如果我们要动态注册插件组件时，可以使用这个`hook api`做到动态注册组件.
+
+**使用**
+
+```typescript
+const [keys, register] = useRegister();
+```
+
+**示例**
+
+```typescript
+import React, { useEffect } from "react";
+import { useRegister } from "react-pluggable-vx";
+
+const TestUseRegister: React.FC = () => {
+  
+  const [keys, register] = useRegister();
+
+  useEffect(() => {
+    // 调用以下函数后会动态注册组件，并返回已注册的组件的keys
+    // 注册插件
+    register.registerPlugin({});
+    // 注册多个插件
+    register.registerPlugins([
+      // ... do something
+    ]);
+  }, []);
+  return (
+    <div>
+      <Slot name="test" />
+    </div>
+  );
+};
+```
+
+## API
+
+##### Slot 插槽组件
+
+用于读取需要放入插槽的组件并渲染
 
 | 属性 | 是否必传 | 说明      |
 | ---- | -------- | --------- |
@@ -132,11 +259,11 @@ export default App;
 
 ##### PluggableConfigItem 接口
 
-| 属性      | 是否必传 | 说明                             |
-| --------- | -------- | -------------------------------- |
-| name      | 是       | `slot`名称，根据此名称，插入组件 |
-| alias     | 否       | 插件别名                         |
-| component | 是       | `.tsx`文件名                     |
+| 属性      | 是否必传 | 说明                                                                                      |
+| --------- | -------- | ----------------------------------------------------------------------------------------- |
+| name      | 是       | `slot`名称，根据此名称插入组件,如果需要在插槽内插入多个子组件需要使用`name/alias`形式插入 |
+| alias     | 否       | 插件别名，不提供，则作为主组件插入                                                        |
+| component | 是       | `.tsx`文件名                                                                              |
 
 ##### PluginProvided 接口
 
