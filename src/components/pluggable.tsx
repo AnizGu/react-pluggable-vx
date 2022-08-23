@@ -1,27 +1,24 @@
-import React, { isValidElement, useEffect, useState } from 'react';
-import { useManager } from '../hooks';
+import React, { isValidElement, useEffect } from 'react';
+import { useRegister } from '../hooks';
 import { PluggableProps } from '../typings';
 import Slot from './slot';
 
 const Pluggable: React.FC<PluggableProps> = ({ plugins, children }) => {
 
-    const manager = useManager();
-    const [keys, setKeys] = useState<string[]>([]);
-
+    const [, register] = useRegister();
     useEffect(() => {
-        if (plugins) {
-            const keys = manager.registerPlugins(plugins);
-            setKeys(keys);
-        }
+        if (plugins)
+            register.registerPlugins(plugins);
     }, [plugins]);
 
     return (
         <>
             {React.Children.map(children, (child) => {
                 if (!isValidElement(child))
-                    return;
-                if (child.type === Slot && keys)
-                    return React.cloneElement(child, child.props)
+                    return child;
+                if (child.type === Slot)
+                    return React.cloneElement(child, { ...child.props })
+                return child;
             })}
         </>
     )
