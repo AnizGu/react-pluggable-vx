@@ -6,6 +6,14 @@ const App: React.FC = () => {
 
   const [, register] = useRegister();
 
+  const dynamicImport = async ()=> {
+    const path = './pluggable/test.tsx';
+    const module = await import(/*webpackIgnore: true*/ path);
+    console.log('module', module);
+  }
+
+  dynamicImport();
+
   useEffect(() => {
     register.registerPlugins([
       {
@@ -25,6 +33,7 @@ const App: React.FC = () => {
         Component: () => <div>Footer</div>
       }
     ]);
+    
   }, []);
 
   function random(min: number, max: number) {
