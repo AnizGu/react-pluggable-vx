@@ -12,7 +12,7 @@ const App: React.FC = () => {
     console.log('module', module);
   }
 
-  dynamicImport();
+  // dynamicImport();
 
   useEffect(() => {
     register.registerPlugins([
