@@ -7,13 +7,13 @@
 ## 安装
 
 ```bash
-npm install --save react-pluggable-vx
+npm install --save @gulibs/react-pluggable-vx
 ```
 
 **or**
 
 ```bash
-yarn add react-pluggable-vx
+yarn add @gulibs/react-pluggable-vx
 ```
 
 ## 使用
