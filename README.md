@@ -24,7 +24,7 @@ yarn add @gulibs/react-pluggable-vx
 
 header.tsx
 
-```typescript
+```javascript
 import React from "react";
 import { PluginProvided, Slot } from "react-pluggable-vx";
 
@@ -46,7 +46,7 @@ export default Header;
 
 headerContent.tsx
 
-```typescript
+```javascript
 import React, { useState } from "react";
 import { PluginProvided } from "react-pluggable-vx";
 
@@ -70,7 +70,7 @@ export default HeaderContent;
 
 config.ts
 
-```typescript
+```javascript
 import { defineConfig } from "react-pluggable-vx";
 
 export default defineConfig({
@@ -94,7 +94,7 @@ export default defineConfig({
 
 App.tsx
 
-```typescript
+```javascript
 import React from "react";
 import { PluggableProvider, Slot } from "react-pluggable-vx";
 import config from "./config";
@@ -120,13 +120,13 @@ export default App;
 
 **使用**
 
-```typescript
+```javascript
 const manager = useManager();
 ```
 
 **示例**
 
-```typescript
+```javascript
 import React, { useEffect } from "react";
 import { useManager } from "react-pluggable-vx";
 
@@ -156,13 +156,13 @@ const TestUseManager: React.FC = () => {
 
 **使用**
 
-```typescript
+```javascript
 const event = useEventHandler();
 ```
 
 **示例**
 
-```typescript
+```javascript
 import React, { useEffect } from "react";
 import { useEventHandler } from "react-pluggable-vx";
 
@@ -202,13 +202,13 @@ const TestUseEventHandler: React.FC = () => {
 
 **使用**
 
-```typescript
+```javascript
 const [keys, register] = useRegister();
 ```
 
 **示例**
 
-```typescript
+```javascript
 import React, { useEffect } from "react";
 import { useRegister } from "react-pluggable-vx";
 
@@ -279,7 +279,7 @@ const TestUseRegister: React.FC = () => {
 
 组件发送消息到指定订阅事件
 
-```typescript
+```javascript
 send: (eventType: string, ...args: any[]) => void;
 ```
 
@@ -287,7 +287,7 @@ send: (eventType: string, ...args: any[]) => void;
 
 在组件内订阅事件
 
-```typescript
+```javascript
 subscribe: <T extends Function>(eventType: string, listener: T) => void;
 ```
 
@@ -295,7 +295,7 @@ subscribe: <T extends Function>(eventType: string, listener: T) => void;
 
 在组件内订阅一次性事件
 
-```typescript
+```javascript
 subscribeOnce: <T extends Function>(eventType: string, listener: T) => void;
 ```
 
@@ -303,7 +303,7 @@ subscribeOnce: <T extends Function>(eventType: string, listener: T) => void;
 
 移除所有事件
 
-```typescript
+```javascript
 removeAll: (eventType?: string) => void;
 ```
 

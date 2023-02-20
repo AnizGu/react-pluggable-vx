@@ -35,8 +35,8 @@ class PluggableCoreManager implements PluggableManager {
 
     registerPlugin = (plugin: IPlugin) => {
         const key = this.getKey(plugin.name, plugin.alias);
-        if (this.has(plugin.name, plugin.alias))
-            throw new Error(`插件"${key}"已注册.`);
+        // if (this.has(plugin.name, plugin.alias))
+        //     throw new Error(`插件"${key}"已注册.`);
         this.plugins.set(key, plugin);
         return key;
     }

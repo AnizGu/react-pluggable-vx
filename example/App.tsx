@@ -1,18 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { PluggableProvider, Slot, useEventHandler, useRegister } from '../src';
-import config from './config';
+import { v1 } from 'uuid';
 
 const App: React.FC = () => {
 
   const [, register] = useRegister();
-
-  const dynamicImport = async ()=> {
-    const path = './pluggable/test.tsx';
-    const module = await import(/*webpackIgnore: true*/ path);
-    console.log('module', module);
-  }
-
-  // dynamicImport();
 
   useEffect(() => {
     register.registerPlugins([
@@ -21,7 +13,12 @@ const App: React.FC = () => {
         alias: '01',
         Component: () => {
           const event = useEventHandler();
-          return <div className='header'><button onClick={()=> {event.send('change',"呵呵")}}>点我</button><Slot name="header-content" /></div>
+          return (
+            <div className='header'>
+              <button onClick={() => { event.send('change', "呵呵") }}>点我</button>
+              <Slot name="header-content" />
+            </div>
+          )
         }
       },
       {
@@ -33,20 +30,16 @@ const App: React.FC = () => {
         Component: () => <div>Footer</div>
       }
     ]);
-    
+
   }, []);
 
-  function random(min: number, max: number) {
-    return Math.floor(Math.random() * (max - min)) + min
-  }
-
   const handleClick = () => {
-    const count = random(0, 100);
+    const pluginId = v1();
     register.registerPlugin({
       name: 'header',
-      alias: count.toString(),
+      alias: pluginId,
       Component: () => {
-        const [t, setText] = useState(count.toString());
+        const [t, setText] = useState(pluginId);
         const event = useEventHandler();
         event.subscribe<(text: string) => void>('change', (text) => {
           setText(text);

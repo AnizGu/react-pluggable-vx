@@ -1,7 +1,7 @@
 {
   "name": "@gulibs/react-pluggable-vx",
   "private": false,
-  "version": "0.1.7",
+  "version": "0.1.8",
   "type": "module",
   "files": [
     "dist"
@@ -41,7 +41,8 @@
     "fbemitter": "^3.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-redux": "^8.0.2"
+    "react-redux": "^8.0.2",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^8.3.4",
@@ -49,6 +50,7 @@
     "@types/node": "^18.7.8",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
+    "@types/uuid": "^9.0.0",
     "@vitejs/plugin-react": "^2.0.1",
     "tslib": "^2.4.0",
     "typescript": "^4.6.4",
